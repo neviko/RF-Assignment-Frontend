@@ -7,9 +7,11 @@ interface ErrorMessageProps {
 const ErrorMessage: React.FC<ErrorMessageProps> = ({ errors }) => {
   return (
     <div>
-      {errors.map((error) => {
-        return <div style={styles.errorMessage}>{error}</div>;
-      })}
+      <ul>
+        {errors.map((error) => {
+          return <li style={styles.errorMessage}>{error}</li>;
+        })}
+      </ul>
     </div>
   );
 };
