@@ -6,17 +6,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Delete } from "@mui/icons-material";
 import { Button } from "@mui/material";
-
-interface Product {
-  asin: string;
-  locale: string;
-  price: string;
-  productName: string;
-  productLink: string;
-  id: string;
-}
+import { Product } from "../common/interfaces/product";
 
 interface ProductListProps {
   products: Product[];
@@ -50,8 +41,8 @@ const ProductList: React.FC<ProductListProps> = ({
               </TableCell>
               <TableCell align="right">{row.locale}</TableCell>
               <TableCell align="right">{row.price}</TableCell>
-              <TableCell align="right">{row.productName}</TableCell>
-              <TableCell align="right">{row.productLink}</TableCell>
+              <TableCell align="right">{row.name}</TableCell>
+              <TableCell align="right">{row.link}</TableCell>
               <TableCell>
                 <Button
                   variant="contained"

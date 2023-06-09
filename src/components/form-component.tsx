@@ -1,26 +1,25 @@
 import React, { useState } from "react";
 import { Button, TextField } from "@mui/material";
+import { FormData } from "../common/interfaces/form-data";
+import ErrorMessage from "./error-message";
+import axios from "axios";
 
 interface FormProps {
-  onSubmit: (data: FormData) => void;
+  submitURL: string;
 }
+const initialFormState: FormData = {
+  asin: "",
+  locale: "",
+  price: "",
+  name: "",
+  link: "",
+  seller_name: "",
+};
+const BASEURL = "http://localhost:5000/api";
 
-interface FormData {
-  asin: string;
-  locale: string;
-  price: string;
-  productName: "";
-  productLink: "";
-}
-
-const Form: React.FC<FormProps> = ({ onSubmit }) => {
-  const [formData, setFormData] = useState<FormData>({
-    asin: "",
-    locale: "",
-    price: "",
-    productName: "",
-    productLink: "",
-  });
+const Form: React.FC<FormProps> = ({ submitURL }) => {
+  const [formData, setFormData] = useState<FormData>(initialFormState);
+  const [errors, setErrors] = useState<string[]>([]);
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -32,9 +31,17 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
     }));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSubmit(formData);
+    try {
+      console.log(formData);
+      await axios.post(`${BASEURL}/products`, formData);
+      setFormData(initialFormState);
+      setErrors([]);
+    } catch (e: any) {
+      console.log(e);
+      setErrors(e.response.data.errors.map((err: any) => err.msg));
+    }
   };
 
   return (
@@ -66,8 +73,8 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
       />
       <TextField
         label="Product Name"
-        name="product_name"
-        value={formData.productName}
+        name="name"
+        value={formData.name}
         onChange={handleChange}
         margin="normal"
         fullWidth
@@ -75,13 +82,24 @@ const Form: React.FC<FormProps> = ({ onSubmit }) => {
       />
       <TextField
         label="Product Link"
-        name="product_link"
-        value={formData.productLink}
+        name="link"
+        value={formData.link}
         onChange={handleChange}
         margin="normal"
         fullWidth
         rows={4}
       />
+      <TextField
+        label="Seller Name"
+        name="seller_name"
+        value={formData.seller_name}
+        onChange={handleChange}
+        margin="normal"
+        fullWidth
+        rows={4}
+      />
+
+      <ErrorMessage errors={errors} />
 
       <Button type="submit" variant="contained" color="primary">
         Add Product
