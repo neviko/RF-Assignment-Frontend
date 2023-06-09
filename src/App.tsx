@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import "./App.css";
 import { Product } from "./common/interfaces/product";
 import SearchBar from "./components/seller-search";
-import Form from "./components/form-component";
-import ProductList from "./components/product-list";
+import ProductForm from "./components/ProductForm";
+import ProductList from "./components/ProductList";
 import axios from "axios";
 
 const BASEURL = "http://localhost:5000/api";
@@ -12,12 +12,27 @@ function App() {
 
   const fetchProductsBySeller = async (sellerName: string): Promise<void> => {
     try {
+      setProducts([]);
       const { data: fetchedProducts } = await axios.get(
         `${BASEURL}/products/seller/${sellerName}`
       );
       setProducts(fetchedProducts);
     } catch (e) {
       console.error(`error while fetching products`);
+    }
+  };
+
+  const deleteProduct = async (asin: string, locale: string) => {
+    try {
+      await axios.delete(`${BASEURL}/products`, {
+        data: { products: [{ asin, locale }] },
+      });
+      const filteredProducts = products.filter(
+        (product) => product.asin !== asin && product.locale !== locale
+      );
+      setProducts(filteredProducts);
+    } catch (e) {
+      console.error(`error while deleting products`);
     }
   };
 
@@ -34,16 +49,11 @@ function App() {
       {/* <App /> */}
       <div style={styles.horizontalContainer}>
         <div style={{ flex: 1 }}>
-          <Form submitURL={BASEURL} />
+          <ProductForm submitURL={BASEURL} />
         </div>
 
         <div style={{ flex: 2 }}>
-          <ProductList
-            products={products}
-            onDeleteProduct={(productId) => {
-              console.log(`productId ${productId}`);
-            }}
-          />
+          <ProductList products={products} onDeleteProduct={deleteProduct} />
         </div>
       </div>
     </div>

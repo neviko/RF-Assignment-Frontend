@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, TextField } from "@mui/material";
 import { FormData } from "../common/interfaces/form-data";
-import ErrorMessage from "./error-message";
+import ErrorMessage from "./ErrorMessage";
 import axios from "axios";
 
 interface FormProps {
@@ -17,7 +17,7 @@ const initialFormState: FormData = {
 };
 const BASEURL = "http://localhost:5000/api";
 
-const Form: React.FC<FormProps> = ({ submitURL }) => {
+const ProductForm: React.FC<FormProps> = ({ submitURL }) => {
   const [formData, setFormData] = useState<FormData>(initialFormState);
   const [errors, setErrors] = useState<string[]>([]);
 
@@ -117,4 +117,4 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
 };
 
-export default Form;
+export default ProductForm;

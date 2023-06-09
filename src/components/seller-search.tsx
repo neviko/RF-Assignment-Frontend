@@ -13,7 +13,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ label, onSearch }) => {
     <div style={styles.main}>
       <label>
         {label}:{" "}
-        <input onChange={(e) => setInputText(e.target.value)} name="myInput" />
+        <input
+          onChange={(e) => setInputText(e.target.value)}
+          name="myInput"
+          style={{ margin: "0px 30px" }}
+        />
       </label>
       <Button
         onClick={(e) => onSearch(inputText)}
@@ -31,9 +35,8 @@ const styles: { [key: string]: React.CSSProperties } = {
   main: {
     display: "flex",
     flexDirection: "row",
-    alignItems: "start",
-    justifyContent: "space-around",
-    margin: "20px 150px",
+    justifyContent: "center",
+    margin: "40px",
   },
 };
 

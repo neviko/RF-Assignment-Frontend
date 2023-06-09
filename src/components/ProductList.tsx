@@ -11,7 +11,7 @@ import { Product } from "../common/interfaces/product";
 
 interface ProductListProps {
   products: Product[];
-  onDeleteProduct: (id: string) => void;
+  onDeleteProduct: (asin: string, locale: string) => {};
 }
 
 const ProductList: React.FC<ProductListProps> = ({
@@ -46,7 +46,7 @@ const ProductList: React.FC<ProductListProps> = ({
               <TableCell>
                 <Button
                   variant="contained"
-                  onClick={() => onDeleteProduct(row.id)}
+                  onClick={() => onDeleteProduct(row.asin, row.locale)}
                 >
                   Delete
                 </Button>
