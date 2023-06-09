@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import { Product } from "./common/interfaces/product";
-import SearchBar from "./components/seller-search";
+import SearchBar from "./components/SellerSearch";
 import ProductForm from "./components/ProductForm";
 import ProductList from "./components/ProductList";
 import axios from "axios";
