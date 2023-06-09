@@ -33,7 +33,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     flexDirection: "row",
     alignItems: "start",
     justifyContent: "space-around",
-    margin: "10px",
+    margin: "20px 150px",
   },
 };
 

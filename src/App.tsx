@@ -23,7 +23,7 @@ function App() {
 
   return (
     <div>
-      <h1>Seller Platform React SPA</h1>
+      <h1 style={styles.header}>Seller Platform React SPA</h1>
       <SearchBar
         label="Seller Name"
         onSearch={async (text: string) => {
@@ -54,6 +54,9 @@ const styles: { [key: string]: React.CSSProperties } = {
   horizontalContainer: {
     display: "flex",
     flexDirection: "row",
+  },
+  header: {
+    textAlign: "center",
   },
 };
 
