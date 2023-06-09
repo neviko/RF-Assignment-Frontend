@@ -22,7 +22,7 @@ function App() {
   };
 
   return (
-    <>
+    <div>
       <h1>Seller Platform React SPA</h1>
       <SearchBar
         label="Seller Name"
@@ -32,16 +32,29 @@ function App() {
         }}
       />
       {/* <App /> */}
-      <Form submitURL={BASEURL} />
+      <div style={styles.horizontalContainer}>
+        <div style={{ flex: 1 }}>
+          <Form submitURL={BASEURL} />
+        </div>
 
-      <ProductList
-        products={products}
-        onDeleteProduct={(productId) => {
-          console.log(`productId ${productId}`);
-        }}
-      />
-    </>
+        <div style={{ flex: 2 }}>
+          <ProductList
+            products={products}
+            onDeleteProduct={(productId) => {
+              console.log(`productId ${productId}`);
+            }}
+          />
+        </div>
+      </div>
+    </div>
   );
 }
+
+const styles: { [key: string]: React.CSSProperties } = {
+  horizontalContainer: {
+    display: "flex",
+    flexDirection: "row",
+  },
+};
 
 export default App;
